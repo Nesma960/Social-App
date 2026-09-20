@@ -1,0 +1,175 @@
+<section class="rounded-2xl py-10 border border-main-color/10 bg-second-color shadow-sm">
+  <!-- Header -->
+  <div class="border-b border-main-color/10 p-4 sm:p-5">
+    <div class="flex flex-wrap items-start justify-between gap-3">
+      <!-- Title -->
+      <div>
+        <h2 class="text-xl font-black text-main-color sm:text-2xl">Notifications</h2>
+
+        <p class="mt-1 text-sm text-slate-500">
+          Stay updated with likes, comments, shares, and follows.
+        </p>
+      </div>
+
+      <!-- Mark all as read -->
+      <button
+        type="button"
+        class="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-main-color/10 bg-third-color/5 px-3 py-2 text-sm font-bold text-main-color transition hover:bg-third-color/10 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+      >
+        <i class="fa-solid fa-check-double text-xs"></i>
+
+        Mark all as read
+      </button>
+    </div>
+
+    <!-- Filters -->
+    <div class="mt-4 grid grid-cols-2 gap-2 sm:flex sm:items-center">
+      <!-- All -->
+      <button
+        type="button"
+        class="rounded-full px-4 py-1.5 text-sm font-bold bg-main-color text-white transition hover:bg-main-color/90"
+      >
+        All
+      </button>
+
+      <!-- Unread -->
+      <button
+        type="button"
+        class="rounded-full px-4 py-1.5 text-sm font-bold bg-third-color/10 text-main-color transition hover:bg-third-color/20"
+      >
+        Unread
+      </button>
+    </div>
+  </div>
+
+  <!-- Notifications -->
+  <div class="space-y-2 p-3 sm:p-4">
+    @for (notification of NotificationList(); track notification.id) {
+      <article
+        class="group relative flex gap-3 rounded-xl border p-3 transition sm:rounded-2xl sm:p-4"
+        [class.border-main-color]="!notification.isRead"
+        [class.bg-main-color/5]="!notification.isRead"
+        [class.border-slate-200]="notification.isRead"
+        [class.bg-white]="notification.isRead"
+        [class.hover:bg-third-color/5]="notification.isRead"
+      >
+        <!-- Avatar -->
+        <div class="relative shrink-0">
+          <button type="button" class="block cursor-pointer">
+            <img
+              [src]="notification.user.photo"
+              [alt]="notification.user.name"
+              class="h-11 w-11 rounded-full object-cover ring-2 ring-main-color/10"
+            />
+          </button>
+
+          <!-- Notification Type Icon -->
+          <span
+            class="absolute -bottom-1 -right-1 inline-flex h-5 w-5 items-center justify-center rounded-full bg-white ring-2 ring-white"
+            [class.text-main-color]="
+              notification.type === 'comment' || notification.type === 'follow'
+            "
+            [class.text-rose-500]="notification.type === 'like'"
+            [class.text-third-color]="notification.type === 'share'"
+          >
+            @switch (notification.type) {
+              @case ('comment') {
+                <i class="fa-solid fa-comment text-[11px]"></i>
+              }
+
+              @case ('like') {
+                <i class="fa-solid fa-heart text-[11px]"></i>
+              }
+
+              @case ('share') {
+                <i class="fa-solid fa-repeat text-[11px]"></i>
+              }
+
+              @case ('follow') {
+                <i class="fa-solid fa-user-plus text-2xs"></i>
+              }
+            }
+          </span>
+        </div>
+
+        <!-- Content -->
+        <div class="min-w-0 flex-1">
+          <div class="flex flex-wrap items-start justify-between gap-1.5 sm:gap-2">
+            <!-- Message -->
+            <p class="text-sm leading-6 text-slate-700">
+              <button
+                type="button"
+                class="font-extrabold text-main-color transition hover:text-third-color hover:underline"
+              >
+                {{ notification.user.name }}
+              </button>
+
+              @switch (notification.type) {
+                @case ('comment') {
+                  commented on your post
+                }
+
+                @case ('like') {
+                  liked your post
+                }
+
+                @case ('share') {
+                  shared your post
+                }
+
+                @case ('follow') {
+                  started following you
+                }
+              }
+            </p>
+
+            <!-- Time -->
+            <span class="shrink-0 text-xs font-semibold text-slate-400">
+              {{ notification.createdAt | date: 'short' }}
+            </span>
+          </div>
+
+          <!-- Additional Message -->
+          @if (notification.message) {
+            <p class="mt-1 text-sm leading-5 text-slate-500">
+              {{ notification.message }}
+            </p>
+          }
+
+          <!-- Read Status -->
+          <div class="mt-2 flex items-center gap-2">
+            @if (notification.isRead) {
+              <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600">
+                <i class="fa-solid fa-check text-2xs"></i>
+                Read
+              </span>
+            } @else {
+              <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-main-color">
+                <span class="h-1.5 w-1.5 rounded-full bg-main-color"></span>
+
+                Unread
+              </span>
+            }
+          </div>
+        </div>
+      </article>
+    } @empty {
+      <!-- Empty State -->
+      <div
+        class="flex flex-col items-center justify-center rounded-2xl border border-dashed border-main-color/20 bg-third-color/5 px-6 py-12 text-center"
+      >
+        <div
+          class="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-main-color/10 text-main-color"
+        >
+          <i class="fa-regular fa-bell text-xl"></i>
+        </div>
+
+        <h3 class="text-base font-bold text-main-color">No notifications yet</h3>
+
+        <p class="mt-1 max-w-sm text-sm text-slate-500">
+          When someone likes, comments on, shares your posts, or follows you, you'll see it here.
+        </p>
+      </div>
+    }
+  </div>
+</section>

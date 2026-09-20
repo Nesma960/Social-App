@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss';
+@import 'flowbite/src/themes/default';
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+
+body {
+  font-family: 'SN Pro', sans-serif;
+}
+body::selection {
+  background-color: #a89bc1;
+  color: white;
+}
+
+@theme {
+  --color-main-color: #6d5a8d;
+  --color-second-color: white;
+  --color-third-color: #9b8ab5;
+}
+
+@utility container {
+  margin-inline: auto;
+}
+input[type='password']::-ms-reveal {
+  display: none;
+}

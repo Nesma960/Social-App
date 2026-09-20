@@ -1,0 +1,96 @@
+/* ================================
+   Socia 404 Animations
+================================ */
+
+/* Phone floating animation */
+.phone-float {
+  animation: phoneFloat 4s ease-in-out infinite;
+}
+
+@keyframes phoneFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-5deg);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(-3deg);
+  }
+}
+
+/* Paper plane */
+.plane-float {
+  animation: planeFloat 3s ease-in-out infinite;
+}
+
+@keyframes planeFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(12deg);
+  }
+
+  50% {
+    transform: translateY(-10px) translateX(5px) rotate(18deg);
+  }
+}
+
+/* Heart */
+.heart-float {
+  animation: heartFloat 3.5s ease-in-out infinite;
+}
+
+@keyframes heartFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-15deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(-8deg);
+  }
+}
+
+/* Notification */
+.notification-float {
+  animation: notificationFloat 4s ease-in-out infinite;
+}
+
+@keyframes notificationFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(2deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(0deg);
+  }
+}
+
+/* Broken image subtle animation */
+.broken-image {
+  animation: brokenImage 3s ease-in-out infinite;
+}
+
+@keyframes brokenImage {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .phone-float {
+    transform: scale(0.9) rotate(-5deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .phone-float {
+    transform: scale(0.75) rotate(-5deg);
+  }
+}
